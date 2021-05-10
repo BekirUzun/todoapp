@@ -9,6 +9,7 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
     @Override
     public String getConnectionString() {
         return "db";
+//        return "couchbase://127.0.0.1";
     }
 
     @Override

@@ -22,7 +22,7 @@ public class TodoController {
     @GetMapping("/home")
     @ApiOperation("Returns Hello World")
     public ResponseEntity<String> home() {
-        return new ResponseEntity<>("Hello Docker World 5311", HttpStatus.OK);
+        return new ResponseEntity<>("{ \"content\": \"Hello Docker World 555\"}", HttpStatus.OK);
     }
 
     @GetMapping
