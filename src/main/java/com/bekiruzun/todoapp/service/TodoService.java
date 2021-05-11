@@ -5,6 +5,7 @@ import com.bekiruzun.todoapp.common.MicroException;
 import com.bekiruzun.todoapp.dao.entity.TodoItem;
 import com.bekiruzun.todoapp.dao.repository.TodoRepository;
 import com.bekiruzun.todoapp.dto.TodoItemDTO;
+import com.bekiruzun.todoapp.mapper.TodoItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,25 +16,25 @@ import java.util.Optional;
 //@Slf4j
 public class TodoService {
     @Autowired
-    TodoRepository repository;
-//    @Autowired
-//    TodoItemMapper mapper;
+    TodoRepository todoRepository;
+    @Autowired
+    TodoItemMapper todoItemMapper;
 
-    public List<TodoItem> getAll() {
+    public List<TodoItemDTO> getAll() {
         System.out.println("sys Getting all TODO items");
-        return repository.findAll();
+        return todoItemMapper.toDto(todoRepository.findAll());
     }
 
-    public TodoItem getById(Long id) throws MicroException {
-        Optional<TodoItem> optionalEntity = repository.findById(id);
+    public TodoItemDTO getById(Long id) throws MicroException {
+        Optional<TodoItem> optionalEntity = todoRepository.findById(id);
         if(!optionalEntity.isPresent())
             throw new MicroException(1L, "Entity with given ID not found");
 
-        return optionalEntity.get();
+        return todoItemMapper.toDto(optionalEntity.get());
     }
 
-    public TodoItem save(TodoItem dto) {
-        return repository.save(dto);
+    public TodoItemDTO save(TodoItemDTO dto) {
+        return todoItemMapper.toDto(todoRepository.save(todoItemMapper.toEntity(dto)));
     }
 
 }

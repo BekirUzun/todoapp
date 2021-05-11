@@ -1,10 +1,10 @@
 package com.bekiruzun.todoapp.dto;
 
-//import lombok.Data;
-//
+import lombok.Data;
+
 import java.util.Date;
 
-//@Data
+@Data
 public class TodoItemDTO {
     private String id;
     private String content;

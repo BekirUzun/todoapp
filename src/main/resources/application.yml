@@ -9,4 +9,5 @@ server:
 
 springdoc:
   swagger-ui:
+    custom: true
     path: '/swagger-ui.html'

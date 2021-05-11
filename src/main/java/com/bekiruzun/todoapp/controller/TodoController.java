@@ -2,6 +2,7 @@ package com.bekiruzun.todoapp.controller;
 
 import com.bekiruzun.todoapp.common.MicroException;
 import com.bekiruzun.todoapp.dao.entity.TodoItem;
+import com.bekiruzun.todoapp.dto.TodoItemDTO;
 import com.bekiruzun.todoapp.service.TodoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,17 +28,17 @@ public class TodoController {
 
     @GetMapping
     @ApiOperation("Lists all todo items")
-    public ResponseEntity<List<TodoItem>> getAll() {
+    public ResponseEntity<List<TodoItemDTO>> getAll() {
         return new ResponseEntity<>(todoService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TodoItem> getById(@PathVariable Long id) throws MicroException {
+    public ResponseEntity<TodoItemDTO> getById(@PathVariable Long id) throws MicroException {
         return new ResponseEntity<>(todoService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<TodoItem> save(@RequestBody TodoItem dto) throws MicroException {
+    public ResponseEntity<TodoItemDTO> save(@RequestBody TodoItemDTO dto) throws MicroException {
         return new ResponseEntity<>(todoService.save(dto), HttpStatus.OK);
     }
 
