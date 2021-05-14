@@ -1,6 +1,6 @@
 package com.bekiruzun.todoapp.controller;
 
-import com.bekiruzun.todoapp.dto.UserDTO;
+import com.bekiruzun.todoapp.dto.RegisterDTO;
 import com.bekiruzun.todoapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,14 +18,14 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation("Authenticates user")
-    public String login(@RequestBody UserDTO userDTO) {
+    public String login(@RequestBody RegisterDTO registerDTO) throws IllegalStateException {
         throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
     }
 
     @PostMapping("/register")
     @ApiOperation("Register new user with given credentials")
-    public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
-        userService.saveUser(userDTO);
+    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO) {
+        userService.saveUser(registerDTO);
         return new ResponseEntity<>("{ \"message\": \"Registered successfully. You may login now.\"}", HttpStatus.OK);
     }
 }

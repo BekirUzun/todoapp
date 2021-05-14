@@ -2,6 +2,9 @@ package com.bekiruzun.todoapp.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.bekiruzun.todoapp.dao.entity.User;
+import com.bekiruzun.todoapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +21,11 @@ import static com.bekiruzun.todoapp.common.Constants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    private UserService userService;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager, UserService userService) {
         super(authManager);
+        this.userService = userService;
     }
 
     @Override
@@ -44,14 +50,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+            String username = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
+            User user = userService.getUser(username);
 
             if (user != null) {
-                // new arraylist means authorities
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
 

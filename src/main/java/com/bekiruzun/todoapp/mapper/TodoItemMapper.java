@@ -1,73 +1,22 @@
 package com.bekiruzun.todoapp.mapper;
 
-
 import com.bekiruzun.todoapp.dao.entity.TodoItem;
 import com.bekiruzun.todoapp.dto.TodoItemDTO;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class TodoItemMapper {
+@Mapper(componentModel = "spring")
+public interface TodoItemMapper {
 
-    public TodoItemDTO toDto(TodoItem entity) {
-        if ( entity == null ) {
-            return null;
-        }
+    TodoItemDTO toDto(TodoItem entity);
 
-        TodoItemDTO todoItemDTO = new TodoItemDTO();
+    List<TodoItemDTO> toDto(List<TodoItem> entityList);
 
-        todoItemDTO.setId( entity.getId() );
-        todoItemDTO.setContent( entity.getContent() );
-        todoItemDTO.setCompleted( entity.isCompleted() );
-        todoItemDTO.setCreateDate( entity.getCreateDate() );
-        todoItemDTO.setCompleteDate( entity.getCompleteDate() );
+    @Mapping(target = "createDate", ignore = true)
+    @Mapping(target = "completeDate", ignore = true)
+    TodoItem toEntity(TodoItemDTO dto);
 
-        return todoItemDTO;
-    }
-
-
-    public List<TodoItemDTO> toDto(List<TodoItem> entityList) {
-        if ( entityList == null ) {
-            return null;
-        }
-
-        List<TodoItemDTO> list = new ArrayList<TodoItemDTO>( entityList.size() );
-        for ( TodoItem todoItem : entityList ) {
-            list.add( toDto( todoItem ) );
-        }
-
-        return list;
-    }
-
-    public TodoItem toEntity(TodoItemDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        TodoItem todoItem = new TodoItem();
-
-        todoItem.setId( dto.getId() );
-        todoItem.setContent( dto.getContent() );
-        todoItem.setCompleted( dto.isCompleted() );
-        todoItem.setCreateDate( dto.getCreateDate() );
-        todoItem.setCompleteDate( dto.getCompleteDate() );
-
-        return todoItem;
-    }
-
-    public List<TodoItem> toEntity(List<TodoItemDTO> dtoList) {
-        if ( dtoList == null ) {
-            return null;
-        }
-
-        List<TodoItem> list = new ArrayList<TodoItem>( dtoList.size() );
-        for ( TodoItemDTO todoItemDTO : dtoList ) {
-            list.add( toEntity( todoItemDTO ) );
-        }
-
-        return list;
-    }
-
+    List<TodoItem> toEntity(List<TodoItemDTO> dtoList);
 }

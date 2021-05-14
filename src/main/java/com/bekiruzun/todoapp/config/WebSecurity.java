@@ -14,8 +14,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.bekiruzun.todoapp.common.Constants.SIGN_UP_URL;
-
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
@@ -31,12 +29,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
             "/swagger-ui.html",
             "/webjars/**",
             "/user/**"
-
     };
 
     @Override
@@ -46,7 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), userService))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

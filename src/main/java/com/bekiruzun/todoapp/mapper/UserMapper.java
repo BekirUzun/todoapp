@@ -1,30 +1,12 @@
 package com.bekiruzun.todoapp.mapper;
 
 import com.bekiruzun.todoapp.dao.entity.User;
-import com.bekiruzun.todoapp.dto.UserDTO;
-import org.springframework.stereotype.Component;
+import com.bekiruzun.todoapp.dto.RegisterDTO;
+import org.mapstruct.Mapper;
 
-@Component
-public class UserMapper {
-    public User toEntity(UserDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-        User entity = new User();
-        entity.setUsername(dto.getUsername());
-        entity.setPassword(dto.getPassword());
-        return entity;
-    }
+    User toEntity(RegisterDTO dto);
 
-    public UserDTO toDto(User entity) {
-        if ( entity == null ) {
-            return null;
-        }
-
-        UserDTO dto = new UserDTO();
-        dto.setUsername(entity.getUsername());
-        dto.setPassword(entity.getPassword());
-        return dto;
-    }
 }

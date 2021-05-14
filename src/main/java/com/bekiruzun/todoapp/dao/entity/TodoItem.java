@@ -15,6 +15,9 @@ public class TodoItem {
     @GeneratedValue(strategy = GenerationStrategy.UNIQUE)
     private String id;
 
+    private String userId;
+
+    private String title;
     private String content;
     private boolean isCompleted;
     private boolean isDeleted;

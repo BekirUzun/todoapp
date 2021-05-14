@@ -3,7 +3,7 @@ package com.bekiruzun.todoapp.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class RegisterDTO {
     private String username;
     private String password;
 }

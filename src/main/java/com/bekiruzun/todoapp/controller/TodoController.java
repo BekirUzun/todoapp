@@ -2,6 +2,7 @@ package com.bekiruzun.todoapp.controller;
 
 import com.bekiruzun.todoapp.common.MicroException;
 import com.bekiruzun.todoapp.dao.entity.TodoItem;
+import com.bekiruzun.todoapp.dto.TodoItemCompleteDTO;
 import com.bekiruzun.todoapp.dto.TodoItemDTO;
 import com.bekiruzun.todoapp.service.TodoService;
 import io.swagger.annotations.Api;
@@ -20,26 +21,36 @@ public class TodoController {
     @Autowired
     TodoService todoService;
 
-    @GetMapping("/home")
-    @ApiOperation("Returns Hello World")
-    public ResponseEntity<String> home() {
-        return new ResponseEntity<>("{ \"content\": \"Hello Docker World 555\"}", HttpStatus.OK);
-    }
-
     @GetMapping
-    @ApiOperation("Lists all todo items")
-    public ResponseEntity<List<TodoItemDTO>> getAll() {
-        return new ResponseEntity<>(todoService.getAll(), HttpStatus.OK);
+    @ApiOperation("Lists all todo items for logged in user")
+    public ResponseEntity<List<TodoItemDTO>> getAllUserItems() {
+        return new ResponseEntity<>(todoService.getAllUserItems(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TodoItemDTO> getById(@PathVariable Long id) throws MicroException {
+    @ApiOperation("Gets todo item details by id")
+    public ResponseEntity<TodoItemDTO> getById(@PathVariable String id) throws MicroException {
         return new ResponseEntity<>(todoService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
+    @ApiOperation("Saves or updates given todo item")
     public ResponseEntity<TodoItemDTO> save(@RequestBody TodoItemDTO dto) throws MicroException {
         return new ResponseEntity<>(todoService.save(dto), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    @ApiOperation("Marks todo item as complete or incomplete")
+    public ResponseEntity<TodoItemDTO> markTodoItemIsComplete(@PathVariable String id, @RequestBody TodoItemCompleteDTO dto)
+            throws MicroException {
+        return new ResponseEntity<>(todoService.markTodoItemIsComplete(id, dto.isComplete()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation("Marks todo item as deleted")
+    public ResponseEntity<Void> delete(@PathVariable String id) throws MicroException {
+        todoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
