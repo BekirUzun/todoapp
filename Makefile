@@ -13,7 +13,7 @@ build-app2:
 	docker build -f Dockerfile.app -t todo-app --target build .
 
 build-plain:
-	docker build -t todo-app --target build --progress plain .
+	docker build -t todo_app --target build --progress plain .
 
 run:
 	mvn clean install -DskipTests
@@ -31,14 +31,9 @@ run-win:
 	mvn clean install -DskipTests
 	docker compose up todo_app --build
 
-test:
-	@echo hello
-	timeout 3
-	@echo world
-
 run-app:
 	mvn clean install -DskipTests
-	docker compose up todo_app --build --force-recreate
+	docker compose up todo_app --build
 
 run-db:
 	docker compose up db --build

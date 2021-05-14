@@ -11,3 +11,9 @@ springdoc:
   swagger-ui:
     custom: true
     path: '/swagger-ui.html'
+
+application:
+  db:
+    username: Administrator
+    password: password
+    bucket-name: default
