@@ -1,6 +1,5 @@
 package com.bekiruzun.todoapp.common;
 
-
 import com.bekiruzun.todoapp.dao.entity.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 

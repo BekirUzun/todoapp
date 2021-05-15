@@ -1,7 +1,6 @@
 package com.bekiruzun.todoapp.controller;
 
 import com.bekiruzun.todoapp.common.MicroException;
-import com.bekiruzun.todoapp.dao.entity.TodoItem;
 import com.bekiruzun.todoapp.dto.TodoItemCompleteDTO;
 import com.bekiruzun.todoapp.dto.TodoItemDTO;
 import com.bekiruzun.todoapp.service.TodoService;

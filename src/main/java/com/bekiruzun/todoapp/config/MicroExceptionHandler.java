@@ -1,8 +1,6 @@
 package com.bekiruzun.todoapp.config;
 
 import com.bekiruzun.todoapp.common.MicroException;
-import lombok.NoArgsConstructor;
-import org.apache.tomcat.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

@@ -7,11 +7,8 @@ import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 public class User implements UserDetails {
@@ -24,7 +21,7 @@ public class User implements UserDetails {
     private boolean enabled = true;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.EMPTY_SET;
     }
 

@@ -5,7 +5,6 @@ import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ public class TestUtils {
     private static EasyRandom generator;
 
     public static EasyRandom getGenerator() {
-        if(generator == null) {
+        if (generator == null) {
             EasyRandomParameters parameters = new EasyRandomParameters();
             parameters.stringLengthRange(3, 10);
             parameters.collectionSizeRange(1, 3);

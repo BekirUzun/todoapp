@@ -2,25 +2,21 @@ package com.bekiruzun.todoapp.service;
 
 import com.bekiruzun.todoapp.common.MicroException;
 import com.bekiruzun.todoapp.common.TestUtils;
-import com.bekiruzun.todoapp.dao.entity.TodoItem;
 import com.bekiruzun.todoapp.dao.entity.User;
 import com.bekiruzun.todoapp.dao.repository.UserRepository;
 import com.bekiruzun.todoapp.dto.RegisterDTO;
 import com.bekiruzun.todoapp.mapper.UserMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

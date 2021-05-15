@@ -1,13 +1,10 @@
 package com.bekiruzun.todoapp.common;
 
-//import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.web.server.ResponseStatusException;
 
 @Data
 public class MicroException extends RuntimeException {
