@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
 
     @PostMapping("/login")
     @ApiOperation("Authenticates user")
-    public ResponseEntity<String> login(@RequestBody RegisterDTO registerDTO) throws MicroException {
+    public ResponseEntity<String> login(@RequestBody RegisterDTO registerDTO) {
         throw new MicroException(3, "This method shouldn't be called. It's implemented by Spring Security filters.");
     }
 
     @PostMapping("/register")
     @ApiOperation("Register new user with given credentials")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterDTO registerDTO) throws MicroException {
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterDTO registerDTO) {
         userService.saveUser(registerDTO);
         RegisterResponse response = new RegisterResponse("Registered successfully. You may login now.");
         return new ResponseEntity<>(response, HttpStatus.OK);

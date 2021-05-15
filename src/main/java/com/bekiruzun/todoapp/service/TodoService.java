@@ -19,9 +19,9 @@ import java.util.Optional;
 @Slf4j
 public class TodoService {
     @Autowired
-    TodoRepository todoRepository;
+    private TodoRepository todoRepository;
     @Autowired
-    TodoItemMapper todoItemMapper;
+    private TodoItemMapper todoItemMapper;
 
     public List<TodoItemDTO> getAllUserItems() {
         return todoItemMapper.toDto(todoRepository.findByUserIdAndIsDeleted(SecurityUtil.getUserId(), false));
@@ -31,11 +31,11 @@ public class TodoService {
         return todoItemMapper.toDto(todoRepository.findByUserIdAndIsDeletedAndTitleContains(SecurityUtil.getUserId(), false, title));
     }
 
-    public TodoItemDTO getById(String id) throws MicroException {
+    public TodoItemDTO getById(String id) {
         return todoItemMapper.toDto(findById(id));
     }
 
-    public TodoItemDTO save(TodoItemDTO dto) throws MicroException {
+    public TodoItemDTO save(TodoItemDTO dto) {
         TodoItem todoItem = todoItemMapper.toEntity(dto);
         if(dto.getId() != null) {
             findById(dto.getId());
@@ -46,13 +46,13 @@ public class TodoService {
         return todoItemMapper.toDto(save(todoItem));
     }
 
-    public TodoItemDTO markTodoItemIsComplete(String id, boolean isComplete) throws MicroException {
+    public TodoItemDTO markTodoItemIsComplete(String id, boolean isComplete) {
         TodoItem todoItem = findById(id);
         todoItem.setCompleted(isComplete);
         return todoItemMapper.toDto(save(todoItem));
     }
 
-    public void delete(String id) throws MicroException {
+    public void delete(String id) {
         TodoItem todoItem = findById(id);
         todoItem.setDeleted(true);  // soft delete
         todoRepository.save(todoItem);
@@ -68,7 +68,7 @@ public class TodoService {
         return todoRepository.save(todoItem);
     }
 
-    private TodoItem findById(String id) throws MicroException {
+    private TodoItem findById(String id) {
         Optional<TodoItem> optionalEntity = todoRepository.findById(id);
         if(!optionalEntity.isPresent())
             throw new MicroException(1, "Entity with given ID not found");

@@ -16,27 +16,27 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User loadUserByUsername(String username) throws MicroException {
+    public User loadUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if(!optionalUser.isPresent())
             throw new MicroException(2, "User with given username does not exists. Given username: " + username);
         return optionalUser.get();
     }
 
-    public User getUser(String username) throws MicroException {
+    public User getUser(String username) {
         User user = loadUserByUsername(username);
         user.setPassword(null);
         return user;
     }
 
-    public void saveUser(RegisterDTO registerDTO) throws MicroException {
+    public void saveUser(RegisterDTO registerDTO) {
         Optional<User> optionalUser = userRepository.findByUsername(registerDTO.getUsername());
         if(optionalUser.isPresent())
             throw new MicroException(2, "User with given username already exists. Given username: " + registerDTO.getUsername());

@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TodoController {
 
-    TodoService todoService;
+    private final TodoService todoService;
 
     @GetMapping
     @ApiOperation("Lists all not deleted todo items for logged in user")
@@ -36,26 +36,25 @@ public class TodoController {
 
     @GetMapping("/{id}")
     @ApiOperation("Gets todo item details by id")
-    public ResponseEntity<TodoItemDTO> getById(@PathVariable String id) throws MicroException {
+    public ResponseEntity<TodoItemDTO> getById(@PathVariable String id) {
         return new ResponseEntity<>(todoService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping
     @ApiOperation("Saves or updates given todo item")
-    public ResponseEntity<TodoItemDTO> save(@RequestBody TodoItemDTO dto) throws MicroException {
+    public ResponseEntity<TodoItemDTO> save(@RequestBody TodoItemDTO dto) {
         return new ResponseEntity<>(todoService.save(dto), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
     @ApiOperation("Marks todo item as complete or incomplete")
-    public ResponseEntity<TodoItemDTO> markTodoItemIsComplete(@PathVariable String id, @RequestBody TodoItemCompleteDTO dto)
-            throws MicroException {
+    public ResponseEntity<TodoItemDTO> markTodoItemIsComplete(@PathVariable String id, @RequestBody TodoItemCompleteDTO dto) {
         return new ResponseEntity<>(todoService.markTodoItemIsComplete(id, dto.isComplete()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("Marks todo item as deleted")
-    public ResponseEntity<Void> delete(@PathVariable String id) throws MicroException {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         todoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
