@@ -15,7 +15,9 @@ public interface TodoRepository extends CouchbaseRepository<TodoItem, Long> {
 
     Optional<TodoItem> findById(String id);
 
-    List<TodoItem> findByUserId(String userId);
+    List<TodoItem> findByUserIdAndIsDeleted(String userId, boolean isDeleted);
+
+    List<TodoItem> findByUserIdAndIsDeletedAndTitleContains(String userId, boolean isDeleted, String title);
 
     Optional<TodoItem> findById();
 

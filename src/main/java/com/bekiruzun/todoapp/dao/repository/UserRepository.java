@@ -8,5 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 
 public interface UserRepository extends CouchbaseRepository<User, Long> {
-    User findByUsername(String username);
+//    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 }

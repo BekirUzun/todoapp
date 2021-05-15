@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class MvcConfig implements WebMvcConfigurer {
+public class MvcConfiguration implements WebMvcConfigurer {
 
     @Value("${springdoc.swagger-ui.custom}")
     private boolean customSwagger;

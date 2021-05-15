@@ -2,21 +2,52 @@ package com.bekiruzun.todoapp.common;
 
 //import lombok.Data;
 
-//@Data
-public class MicroException extends RuntimeException  {
-    Long code;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
+
+@Data
+public class MicroException extends RuntimeException {
+    Integer errorCode;
+    HttpStatus status;
+    Integer statusCode;
+    String message;
+    Throwable cause;
+    String path;
+
 
     public MicroException() {
-        super();
+        this(-999, "An exception occurred during processing request.");
     }
 
-    public MicroException(Long code, String message) {
-        super(message);
-        this.code = code;
+    public MicroException(Integer errorCode, String message) {
+        this(errorCode, message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public MicroException(Long code, String message, Throwable cause) {
-        super(message, cause);
-        this.code = code;
+    public MicroException(Integer errorCode, String message, HttpStatus status) {
+        this(errorCode, message, status, null);
+    }
+
+    public MicroException(Integer errorCode, String message, HttpStatus status, @Nullable Throwable cause) {
+        this.errorCode = errorCode;
+        this.message = message;
+        this.status = status;
+        this.cause = cause;
+        this.statusCode = status.value();
+    }
+
+    @JsonIgnore
+    @Override
+    public StackTraceElement[] getStackTrace() {
+        return super.getStackTrace();
+    }
+
+    @JsonIgnore
+    @Override
+    public String getLocalizedMessage() {
+        return super.getLocalizedMessage();
     }
 }

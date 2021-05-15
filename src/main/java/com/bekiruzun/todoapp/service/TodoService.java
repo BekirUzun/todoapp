@@ -24,7 +24,11 @@ public class TodoService {
     TodoItemMapper todoItemMapper;
 
     public List<TodoItemDTO> getAllUserItems() {
-        return todoItemMapper.toDto(todoRepository.findByUserId(SecurityUtil.getUserId()));
+        return todoItemMapper.toDto(todoRepository.findByUserIdAndIsDeleted(SecurityUtil.getUserId(), false));
+    }
+
+    public List<TodoItemDTO> search(String title) {
+        return todoItemMapper.toDto(todoRepository.findByUserIdAndIsDeletedAndTitleContains(SecurityUtil.getUserId(), false, title));
     }
 
     public TodoItemDTO getById(String id) throws MicroException {
@@ -50,7 +54,8 @@ public class TodoService {
 
     public void delete(String id) throws MicroException {
         TodoItem todoItem = findById(id);
-        todoRepository.delete(todoItem);
+        todoItem.setDeleted(true);  // soft delete
+        todoRepository.save(todoItem);
     }
 
     private TodoItem save(TodoItem todoItem) {
@@ -66,7 +71,7 @@ public class TodoService {
     private TodoItem findById(String id) throws MicroException {
         Optional<TodoItem> optionalEntity = todoRepository.findById(id);
         if(!optionalEntity.isPresent())
-            throw new MicroException(1L, "Entity with given ID not found");
+            throw new MicroException(1, "Entity with given ID not found");
         return optionalEntity.get();
     }
 

@@ -7,6 +7,7 @@ import com.bekiruzun.todoapp.dto.TodoItemDTO;
 import com.bekiruzun.todoapp.service.TodoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/todo")
 @Api(value = "Todo Controller", tags = "Todo Controller")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TodoController {
-    @Autowired
+
     TodoService todoService;
 
     @GetMapping
-    @ApiOperation("Lists all todo items for logged in user")
+    @ApiOperation("Lists all not deleted todo items for logged in user")
     public ResponseEntity<List<TodoItemDTO>> getAllUserItems() {
         return new ResponseEntity<>(todoService.getAllUserItems(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    @ApiOperation("Searches todo items for logged in user")
+    public ResponseEntity<List<TodoItemDTO>> search(@RequestParam String title) {
+        return new ResponseEntity<>(todoService.search(title), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -52,6 +60,5 @@ public class TodoController {
         todoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }

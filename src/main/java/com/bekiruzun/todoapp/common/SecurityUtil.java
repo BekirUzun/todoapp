@@ -13,7 +13,8 @@ public class SecurityUtil {
     public static String getUserId() {
         return getUser().getId();
     }
+
     public static String getUserName() {
-        return getUser().getId();
+        return getUser().getUsername();
     }
 }
