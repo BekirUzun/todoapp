@@ -1,25 +1,49 @@
 # todoapp
  Simple Todo application to demonstrate Docker + Couchbase + Spring stack
 
+# Build
+To build both database and application containers, you can use two commands:
+
+````bash
+mvn clean install -DskipTests
+
+docker compose build
+````
+
+If you have [make](https://www.gnu.org/software/make/manual/make.html) installed on your machine, you can simply run:
+````bash
+make build
+````
 
 # Run
+After you build both database and application containers, you can use this command to start both database and application:
+````bash
+docker compose up
+````
 
-``docker build -t todo-app .``
+You can also run database and application containers in different terminals. 
+I personally prefer to run database container in seperate terminal and run application without docker to effective development.
 
-``docker build -t todo-app --target build .``
+To start only database container:
+````bash
+docker compose up db --build
+````
 
-``docker compose up``
-docker compose up couchbase
-docker compose up todo-app
+To start only application container:
+````bash
+docker compose up todo_app --build
+````
 
-docker run -d --name couchbase -p 8091-8094:8091-8094 -p 11210:11210 couchbase
+If you wish to use make, you can use this commands seperately:
+````bash
+make run      # starts both database and application container
+````
+````bash
+make run-db   # starts only database container
+````
+````bash
+make run-app  # starts only aplication container
+````
 
-docker run -p 8080:8080 todo-app
+After running application successfully, Swagger UI will be available at [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
-docker compose run -d --service-ports --name todo-app todo-app
-
-
-
-docker build -f Dockerfile.app -t todo-app --target build .
-docker build -f Dockerfile.db -t couchbase .
-docker build -t todo-app --target build --progress plain .
