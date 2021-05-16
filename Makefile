@@ -34,3 +34,6 @@ run-safe-win:
 	timeout 15
 	mvn clean install -DskipTests
 	docker compose up todo_app --build
+
+test:
+	docker build -t todo_app --progress plain --target test .
