@@ -67,9 +67,21 @@ Basic usage is:
 3. Copy the jwtToken and paste it to Swagger's "Authorize" section
 4. You may use Todo endpoints now.
 
+# Stack and Libraries
+- Couchbase
+- Docker
+- Java 1.8 with Maven
+    - Spring Boot
+    - Spring Security with JWT
+    - Spring Data Couchbase
+    - Swagger  
+    - Lombok
+    - Mapstruct
+    - Junit 5
+    - Mockito 
+    - EasyRandom
 
-# Troubleshooting
- 
+# Troubleshooting 
 1. This app uses custom Swagger UI. If you are experiencing problems with Swagger, you may set springdoc.swagger-ui.custom property to false in application.yml
 2. If you are getting timeout exception from Couchbase, default bucket maybe in warmup state. Just give it few minutes to be at healty state.
 3. If anyhow creating index on a bucket fail, you may create it manually by running ``CREATE PRIMARY INDEX defaultpk ON default USING GSI`` script on your [Couchbase UI](http://localhost:8091/ui/index.html) (username and password is default **Administrator:password**)
